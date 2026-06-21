@@ -1,0 +1,347 @@
+.top-header {
+    background-color: var(--bg-header);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.search-container {
+    width: 100%;
+    max-width: 800px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 0.25rem;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+    font-size: 1rem;
+    outline: none;
+}
+
+.search-input:focus {
+    border-color: var(--blue-btn);
+}
+
+/* 2. Sub Menu */
+.sub-nav {
+    background-color: var(--bg-nav);
+    border-bottom: 1px solid var(--border-color);
+    padding: 0 2rem;
+}
+
+.nav-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+}
+
+.nav-item {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+}
+
+.nav-item.active {
+    border-bottom-color: var(--blue-btn);
+    color: var(--text-primary);
+}
+
+.main-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.content-header {
+    margin-bottom: 2rem;
+}
+
+.content-header h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+}
+
+.content-header p {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+.sets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+}
+
+.set-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-image-container {
+    background-color: #0f172a; 
+    height: 140px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.card-image-container img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.no-image-text {
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+}
+
+.card-info {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.75rem;
+}
+
+.set-title {
+    font-size: 0.875rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--text-primary);
+    min-height: 2.5rem; 
+    display: flex;
+    align-items: center;
+}
+
+.btn-shop {
+    width: 100%;
+    background-color: var(--blue-btn);
+    color: white;
+    border: none;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-shop:hover {
+    background-color: var(--blue-btn-hover);
+}
+
+.price-guide-link {
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    text-decoration: none;
+}
+
+.price-guide-link:hover {
+    text-decoration: underline;
+    color: var(--text-primary);
+}
+
+.empty-state {
+    text-align: center;
+    padding: 4rem;
+    color: var(--text-secondary);
+}
+
+.nav-content {
+    position: relative; /* Necessário para ancorar o Mega Menu */
+}
+
+.nav-item-container {
+    display: inline-block;
+}
+
+.nav-item {
+    display: inline-block;
+    padding: 1rem 1.5rem; 
+}
+
+.mega-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 850px; /* Largura idêntica à referência */
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-top: none;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+    z-index: 50;
+    padding: 2rem;
+    cursor: default;
+}
+
+.mega-header {
+    margin-bottom: 1.5rem;
+}
+
+.mega-header h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+    color: var(--text-primary);
+}
+
+.mega-header .shop-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.mega-header .shop-links a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 0.875rem;
+    border-bottom: 1px dashed var(--blue-btn);
+    transition: color 0.2s;
+}
+
+.mega-header .shop-links a:hover {
+    color: var(--blue-btn);
+}
+
+.mega-body {
+    display: flex;
+    gap: 2rem;
+}
+
+.mega-lists {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.lists-row {
+    display: flex;
+    gap: 2rem;
+}
+
+.lists-row.bottom-links {
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.5rem;
+}
+
+.list-group {
+    flex: 1;
+}
+
+.list-group h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0 0 1rem 0;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.list-columns {
+    display: flex;
+    gap: 1rem;
+}
+
+.list-columns ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex: 1;
+}
+
+.list-columns li {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+    cursor: pointer;
+    line-height: 1.2;
+}
+
+.list-columns li:hover {
+    color: var(--blue-btn);
+    text-decoration: underline;
+}
+
+.mega-featured {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border-left: 1px solid var(--border-color);
+    padding-left: 2rem;
+}
+
+.featured-image-placeholder {
+    width: 100%;
+    height: 120px;
+    background-color: #0f172a;
+    border: 1px solid var(--border-color);
+    border-radius: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+.mega-featured h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--text-primary);
+}
+
+.btn-preorder {
+    background-color: #059669; 
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    font-weight: 700;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-preorder:hover {
+    background-color: #047857;
+}
+
+.featured-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-outline:hover {
+    border-color: var(--blue-btn);
+    color: var(--blue-btn);
+}

@@ -2,75 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --bg-main: #111827;
+    --bg-card: #1f2937;
+    --bg-header: #030712;
+    --bg-nav: #111827;
+    --border-color: #374151;
+    --text-primary: #f9fafb;
+    --text-secondary: #9ca3af;
+    --blue-btn: #2563eb;
+    --blue-btn-hover: #1d4ed8;
+}
+
 body {
-    background-color: #111827; 
-    color: #f3f4f6;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
     font-family: ui-sans-serif, system-ui, sans-serif;
     margin: 0;
     padding: 0;
-}
-
-.scanner-layout {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2.5rem 1rem;
-}
-
-@media (min-width: 768px) {
-    .scanner-layout {
-        grid-template-columns: 1fr 1fr; 
-    }
-}
-
-.card {
-    background-color: #1f2937;
-    border: 1px solid #374151;
-    border-radius: 1rem;
-    overflow: hidden;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
-}
-
-.card-header {
-    padding: 1.25rem 1.5rem;
-    border-bottom: 1px solid #374151;
-}
-
-.card-body {
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.btn {
-    width: 100%;
-    padding: 0.875rem 1.5rem;
-    font-weight: bold;
-    border-radius: 0.75rem;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    color: white;
-}
-
-.btn-blue {
-    background-color: #2563eb;
-}
-.btn-blue:hover {
-    background-color: #1d4ed8;
-}
-
-.btn-green {
-    background-color: #059669;
-}
-.btn-green:hover {
-    background-color: #047857;
-}
-.btn-green:disabled {
-    background-color: #4b5563;
-    cursor: not-allowed;
-    color: #9ca3af;
+    min-height: 100vh;
 }
