@@ -1,58 +1,78 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# TCG Scanner
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplicação web que identifica cartas de **Pokémon TCG** pela câmera do celular ou do computador. O usuário fotografa a carta e o back-end envia a imagem para a **API do Google Gemini**, que devolve o nome, o número na coleção e a raridade. A página inicial lista as coleções oficiais do jogo usando a **API pública TCGdex**.
 
-## About Laravel
+Feito com **Laravel** no back-end e **Vue 3 + Inertia** no front-end.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+> Projeto em desenvolvimento.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Funcionalidades
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Scanner pela câmera**: acessa a câmera traseira do dispositivo pelo navegador (`getUserMedia`), captura a foto e mostra a pré-visualização antes de enviar.
+- **Identificação com IA**: o Laravel envia a imagem em base64 para o modelo `gemini-2.5-flash`, com um prompt que exige uma resposta em JSON com `nome`, `numero` (ex.: `170/165`) e `raridade` (Full Art, Holo, Reverse Holo etc.).
+- **Listagem de coleções**: a página inicial consome a TCGdex (`/v2/pt/sets`) e exibe as coleções em português com seus logos.
+- **Tratamento de erros**: falhas na API externa são registradas no log do Laravel e o usuário recebe uma mensagem amigável.
+- Autenticação completa com Laravel Breeze (login, cadastro e perfil).
 
-## Learning Laravel
+## Como funciona
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
-
-```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+```
+Navegador (Vue)                Laravel                         Google Gemini
+──────────────                 ───────                         ─────────────
+captura a foto  ── base64 ──▶  POST /process-card
+                               valida a imagem
+                               monta o prompt   ── imagem ──▶  analisa a carta
+                               lê o JSON        ◀── JSON ────  nome, número, raridade
+exibe o resultado ◀── JSON ──
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+## Tecnologias
 
-## Contributing
+| Camada | Tecnologias |
+|---|---|
+| Back-end | PHP 8.3+, Laravel 13, HTTP Client do Laravel |
+| Front-end | Vue 3, Inertia.js, Vite, Tailwind CSS, Axios |
+| IA | Google Gemini (`gemini-2.5-flash`), entrada de imagem |
+| Dados externos | TCGdex API |
+| Banco de dados | SQLite |
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Como rodar localmente
 
-## Code of Conduct
+Pré-requisitos: PHP 8.3+, Composer, Node.js 18+ e uma chave gratuita da API do Gemini ([Google AI Studio](https://aistudio.google.com/app/apikey)).
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+# 1. Clonar e instalar dependências
+git clone https://github.com/davihely/tcg-scanner.git
+cd tcg-scanner
+composer install
+npm install
 
-## Security Vulnerabilities
+# 2. Configurar o ambiente
+cp .env.example .env
+php artisan key:generate
+echo "GEMINI_API_KEY=sua_chave_aqui" >> .env
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+# 3. Banco de dados (SQLite)
+touch database/database.sqlite
+php artisan migrate
 
-## License
+# 4. Subir a aplicação (em dois terminais)
+php artisan serve
+npm run dev
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Acesse `http://localhost:8000` para ver as coleções e `http://localhost:8000/scanner` para escanear uma carta.
+
+> O navegador só libera a câmera em `localhost` ou em sites com HTTPS.
+
+## Próximos passos
+
+- Salvar as cartas identificadas em uma coleção pessoal por usuário.
+- Cruzar o resultado da IA com a TCGdex para trazer imagem oficial e preço.
+
+## Autor
+
+**Davi Hely**: desenvolvedor full stack (PHP, Laravel, Vue.js)
+
+- [LinkedIn](https://www.linkedin.com/in/davihely/)
+- [Portfólio](https://davihely.github.io/profile-page/)
